@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+	default-lazy-init="false" default-autowire="byName">
+
+	<!-- 支付确认消息发送 -->
+	<bean id="payMentSendMessageWorker" class="com.jcloud.learn.work.test.MessageWorker"
+		init-method="start" destroy-method="stop">
+		<property name="delay" value="10000"></property>
+		<property name="businessOperationCorePoolSize" value="10"></property>
+		<property name="businessOperationMaxiNumpoolsize" value="100"></property>
+		<property name="businessOperationKeepalivetime" value="5"></property>
+	</bean>
+
+</beans>
