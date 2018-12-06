@@ -10,19 +10,8 @@ public class CircuitBreakConfig {
     public CircuitBreakConfig() {
     }
 
-    public CircuitBreakMode getMode() {
-        return mode;
-    }
-
-    public void setMode(CircuitBreakMode mode) {
-        this.mode = mode;
-    }
-
     public List<ApiItem> getWhiteList() {
         return whiteList;
     }
 
-    public void setWhiteList(List<ApiItem> whiteList) {
-        this.whiteList = whiteList;
-    }
 }

@@ -8,7 +8,7 @@ public class LoadConfig {
     private CircuitBreakConfig config;
     private Person person;
 
-    public LoadConfig() {
+    private LoadConfig() {
         InputStream configInputStream =
                 this.getClass().getClassLoader().getResourceAsStream("httpClientCircuitBreak.yml");
 
