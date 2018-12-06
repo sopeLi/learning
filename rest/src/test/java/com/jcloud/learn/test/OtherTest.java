@@ -3,9 +3,7 @@ package com.jcloud.learn.test;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,57 +11,64 @@ import java.util.Map;
  */
 public class OtherTest {
     @Test
-    public void charTest(){
-        char c=(char)-0;
+    public void charTest() {
+        char c = (char) -0;
         System.out.println(c);
     }
-    /** 1字节 8位 so -1**/
+
+    /**
+     * 1字节 8位 so -1
+     **/
     @Test
-    public void byteTest(){
+    public void byteTest() {
         /**
          * -2^(8*1-1)
          */
-        byte b=127;
+        byte b = 127;
         System.out.println(b);
     }
 
-    /**2字节  16位 有符号位 so -1**/
+    /**
+     * 2字节  16位 有符号位 so -1
+     **/
     @Test
-    public void shortTest(){
+    public void shortTest() {
         /**
          * -2^(8*2-1)------2^(8*2-1)-1
          * -32768----32767
          */
-        short s=-32768;
-        short i=32767;
+        short s = -32768;
+        short i = 32767;
     }
 
 
-    /**4字节 16位 so -1**/
+    /**
+     * 4字节 16位 so -1
+     **/
     @Test
-    public void intTest(){
+    public void intTest() {
         /**
          * -2^(8*4-1)------2^(8*4-1)-1
          */
-        int i=2147483647;
+        int i = 2147483647;
     }
 
 
     @Test
-    public void listTest(){
+    public void listTest() {
 //        List<Student> students=new ArrayList<Student>();
-        Student s=new Student();
-        s.setAge(20);
-        s.setName("zhangsan");
+        Student s = new Student();
+        s.setAge();
+        s.setName();
 
-        Method[] methods= s.getClass().getDeclaredMethods();
-        for(Method m:methods){
+        Method[] methods = s.getClass().getDeclaredMethods();
+        for (Method m : methods) {
             System.out.println(m);
             System.out.println(m.getName());
-            if("getAge".equals(m.getName())){
-                try{
+            if ("getAge".equals(m.getName())) {
+                try {
                     System.out.println(m.invoke(s));
-                }catch (Exception e){
+                } catch (Exception ignored) {
 
                 }
             }
@@ -82,41 +87,19 @@ public class OtherTest {
 
     @Test
     public void hashMapTest() {
-        Map hs=new HashMap();
-        hs.put("tt","tt");
-        hs.put("tt1","tt1");
+        Map<String, String> hs = new HashMap<>();
+        hs.put("tt", "tt");
+        hs.put("tt1", "tt1");
         System.out.println(hs.size());
     }
 
-    class People{
-        private List<Student> studentList;
 
-        public List<Student> getStudentList() {
-            return studentList;
+    class Student {
+
+        void setName() {
         }
 
-        public void setStudentList(List<Student> studentList) {
-            this.studentList = studentList;
-        }
-    }
-    class  Student{
-        private String name;
-        private Integer age;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Integer getAge() {
-            return age;
-        }
-
-        public void setAge(Integer age) {
-            this.age = age;
+        void setAge() {
         }
     }
 }

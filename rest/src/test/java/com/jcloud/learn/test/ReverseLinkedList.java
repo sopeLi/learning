@@ -9,7 +9,7 @@ public class ReverseLinkedList {
         Node next;
     }
 
-    static Node readyNode() {
+    private static Node readyNode() {
         Node linkNode1 = new Node();
         linkNode1.data = 1;
         Node linkNode2 = new Node();
@@ -31,11 +31,12 @@ public class ReverseLinkedList {
     }
 
     public static void main(String[] args) {
-        Node n=readyNode();
-        Node newNode=reverseLinkedList(n);
+        Node n = readyNode();
+        Node newNode = reverseLinkedList(n);
+        System.out.println(newNode);
     }
 
-    static Node reverseLinkedList(Node node) {
+    private static Node reverseLinkedList(Node node) {
         if (node == null || node.next == null) {
             return node;
         } else {

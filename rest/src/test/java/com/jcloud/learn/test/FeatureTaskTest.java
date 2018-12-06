@@ -11,17 +11,14 @@ public class FeatureTaskTest {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         long startTime = System.currentTimeMillis();
         // 第一步 网购厨具
-        Callable<Chuju> onlineShopping = new Callable<Chuju>() {
-            public Chuju call() throws Exception {
-                System.out.println("第一步：下单");
-                System.out.println("第一步：等待送货");
-                Thread.sleep(5000);  // 模拟送货时间
-                System.out.println("第一步：快递送到");
-                return new Chuju();
-            }
-
+        Callable<Chuju> onlineShopping = () -> {
+            System.out.println("第一步：下单");
+            System.out.println("第一步：等待送货");
+            Thread.sleep(5000);  // 模拟送货时间
+            System.out.println("第一步：快递送到");
+            return new Chuju();
         };
-        FutureTask<Chuju> task = new FutureTask<Chuju>(onlineShopping);
+        FutureTask<Chuju> task = new FutureTask<>(onlineShopping);
         new Thread(task).start();
         // 第二步 去超市购买食材
         Thread.sleep(2000);  // 模拟购买食材时间

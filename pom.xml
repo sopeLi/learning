@@ -171,6 +171,23 @@
         </dependency>
         <!-- ali json end-->
 
+        <!-- yalm begin-->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.23</version>
+        </dependency>
+        <!-- yalm end-->
+
+        <!-- lombok begin-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+        </dependency>
+        <!-- lombok end-->
+
+
         <!--Spring MVC集成slf4j-logback end-->
 
         <!--<dependency>-->

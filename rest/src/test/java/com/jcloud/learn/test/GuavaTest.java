@@ -2,15 +2,11 @@ package com.jcloud.learn.test;
 
 import com.alibaba.fastjson.JSON;
 import com.github.rholder.retry.*;
-import com.google.common.base.Predicates;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableSet;
-import com.sun.javaws.CacheUtil;
-import jdk.nashorn.api.scripting.JSObject;
 import org.junit.Test;
-import org.springframework.http.HttpMethod;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -27,14 +23,16 @@ public class GuavaTest {
 
     @Test
     public void ImmutableCollectionsTest() {
-        Set<String> set = new HashSet<String>(Arrays.asList(new String[]{"RED", "GREEN"}));
+        Set<String> set = new HashSet<>(Arrays.asList("RED", "GREEN"));
         Set<String> unmodifiableSet = Collections.unmodifiableSet(set);///对源对象操作还会对immutableSet有影响
-        /**guava collection use **/
-        ImmutableSet<Set<String>> unImmutableSet = ImmutableSet.of(set);//对源对象操作还会对immutableSet有影响 but
+        /**guava collection use
+         * 对源对象操作还会对immutableSet有影响 but
+         * **/
+//        ImmutableSet<Set<String>> unImmutableSet = ImmutableSet.of(set);
+
         // 可以使用下面的方法
         // ImmutableSet<String> immutableSet = ImmutableSet.of("RED", "GREEN");
         ImmutableSet<String> immutableSet = ImmutableSet.copyOf(set);//真正实现了操作源set不会对immutableSet影响
-        /** **/
         set.add("test");
         System.out.println(unmodifiableSet);
         System.out.println(immutableSet);
@@ -43,7 +41,7 @@ public class GuavaTest {
 
     @Test
     public void MultisetUseTest() {
-        List wordList = new ArrayList<String>();
+        List<String> wordList = new ArrayList<>();
         wordList.add("hello");
         wordList.add("hello");
         wordList.add("hello");
@@ -57,22 +55,19 @@ public class GuavaTest {
 
     @Test
     public void hashMultiMapTest() {
-        HashMap<String, HashSet<String>> hMap = new HashMap<String, HashSet<String>>();
-        List<Ticket> tickets = new ArrayList<Ticket>();
+        HashMap<String, HashSet<String>> hMap = new HashMap<>();
+        List<Ticket> tickets;
+        tickets = new ArrayList<>();
         Ticket t = new Ticket();
-        t.setCandidate("lixin");
+        t.setCandidate();
         t.setVoter("zhangSan");
         tickets.add(t);
         Ticket t1 = new Ticket();
-        t1.setCandidate("lixin");
+        t1.setCandidate();
         t1.setVoter("lisi");
         tickets.add(t1);
         for (Ticket ticket : tickets) {
-            HashSet<String> set = hMap.get(ticket.getCandidate());
-            if (set == null) {
-                set = new HashSet<String>();
-                hMap.put(ticket.getCandidate(), set);
-            }
+            HashSet<String> set = hMap.computeIfAbsent(ticket.getCandidate(), k -> new HashSet<>());
             set.add(ticket.getVoter());
         }
         System.out.println(hMap);
@@ -90,29 +85,29 @@ public class GuavaTest {
         private String candidate;
         private String voter;
 
-        public String getCandidate() {
+        String getCandidate() {
             return candidate;
         }
 
-        public void setCandidate(String candidate) {
-            this.candidate = candidate;
+        void setCandidate() {
+            this.candidate = "lixin";
         }
 
-        public String getVoter() {
+        String getVoter() {
             return voter;
         }
 
-        public void setVoter(String voter) {
+        void setVoter(String voter) {
             this.voter = voter;
         }
 
     }
 
     @Test
-    public void splitTEst(){
-        String args[]=",a,,b,".split(",");
-        System.out.println(args);
-        Iterable<String> result=Splitter.on(',')
+    public void splitTEst() {
+        String args[] = ",a,,b,".split(",");
+        System.out.println(Arrays.toString(args));
+        Iterable<String> result = Splitter.on(',')
                 .trimResults()
                 .omitEmptyStrings()
                 .split(",a,,b,");
@@ -121,56 +116,46 @@ public class GuavaTest {
 
     /**
      * 简单三步就能使用Guava Retryer优雅的实现重调方法。
-
-     　　接下来对其进行详细说明：　　
-     　　RetryerBuilder是一个factory创建者，可以定制设置重试源且可以支持多个重试源，可以配置重试次数或重试超时时间，以及可以配置等待时间间隔，创建重试者Retryer实例。
-
-     　　RetryerBuilder的重试源支持Exception异常对象 和自定义断言对象，通过retryIfException 和retryIfResult设置，同时支持多个且能兼容。
-
-     　　retryIfException，抛出runtime异常、checked异常时都会重试，但是抛出error不会重试。
-
-     　　retryIfRuntimeException只会在抛runtime异常的时候才重试，checked异常和error都不重试。
-
-     　　retryIfExceptionOfType允许我们只在发生特定异常的时候才重试，比如NullPointerException和IllegalStateException都属于runtime异常，也包括自定义的error
-
-     　　如：　　
-     .retryIfExceptionOfType(Error.class)// 只在抛出error重试
-     　　当然我们还可以在只有出现指定的异常的时候才重试，如：　　
-
-     .retryIfExceptionOfType(IllegalStateException.class)
-     .retryIfExceptionOfType(NullPointerException.class)
-     　　或者通过Predicate实现
-
-     .retryIfException(Predicates.or(Predicates.instanceOf(NullPointerException.class),
-     Predicates.instanceOf(IllegalStateException.class)))
-     　　retryIfResult可以指定你的Callable方法在返回值的时候进行重试，如　　
-
-     // 返回false重试
-     .retryIfResult(Predicates.equalTo(false))
-     //以_error结尾才重试
-     .retryIfResult(Predicates.containsPattern("_error$"))
-     当发生重试之后，假如我们需要做一些额外的处理动作，比如发个告警邮件啥的，那么可以使用RetryListener。每次重试之后，
-     guava-retrying会自动回调我们注册的监听。可以注册多个RetryListener，会按照注册顺序依次调用。
+     * <p>
+     * 　　接下来对其进行详细说明：
+     * 　　RetryerBuilder是一个factory创建者，可以定制设置重试源且可以支持多个重试源，可以配置重试次数或重试超时时间，以及可以配置等待时间间隔，创建重试者Retryer实例。
+     * <p>
+     * 　　RetryerBuilder的重试源支持Exception异常对象 和自定义断言对象，通过retryIfException 和retryIfResult设置，同时支持多个且能兼容。
+     * <p>
+     * 　　retryIfException，抛出runtime异常、checked异常时都会重试，但是抛出error不会重试。
+     * <p>
+     * 　　retryIfRuntimeException只会在抛runtime异常的时候才重试，checked异常和error都不重试。
+     * <p>
+     * 　　retryIfExceptionOfType允许我们只在发生特定异常的时候才重试，比如NullPointerException和IllegalStateException都属于runtime异常，也包括自定义的error
+     * <p>
+     * 　　如：
+     * .retryIfExceptionOfType(Error.class)// 只在抛出error重试
+     * 　　当然我们还可以在只有出现指定的异常的时候才重试，如：
+     * <p>
+     * .retryIfExceptionOfType(IllegalStateException.class)
+     * .retryIfExceptionOfType(NullPointerException.class)
+     * 　　或者通过Predicate实现
+     * <p>
+     * .retryIfException(Predicates.or(Predicates.instanceOf(NullPointerException.class),
+     * Predicates.instanceOf(IllegalStateException.class)))
+     * 　　retryIfResult可以指定你的Callable方法在返回值的时候进行重试，如
+     * <p>
+     * // 返回false重试
+     * .retryIfResult(Predicates.equalTo(false))
+     * //以_error结尾才重试
+     * .retryIfResult(Predicates.containsPattern("_error$"))
+     * 当发生重试之后，假如我们需要做一些额外的处理动作，比如发个告警邮件啥的，那么可以使用RetryListener。每次重试之后，
+     * guava-retrying会自动回调我们注册的监听。可以注册多个RetryListener，会按照注册顺序依次调用。
      */
     @Test
-    public  void guavaRetryTest() {
-        /**
-         *
-         *具体需要重试的业务代码
-         */
-        Callable<Boolean> updateReimAgentsCall = new Callable<Boolean>() {
-            public Boolean call() throws Exception {
-                String url = "url";
-                String result = "result";
-                if (StringUtils.isEmpty(result)) {
-                    throw new RemoteException("获取OA可报销代理人接口异常");
-                }
-                List<Object> oaReimAgents = JSON.parseArray(result, Object.class);
-                if (CollectionUtils.isEmpty(oaReimAgents)) {
-                    return true;
-                }
-                return false;
+    public void guavaRetryTest() throws ExecutionException, RetryException {
+        Callable<Boolean> updateReimAgentsCall = () -> {
+            String result = "result";
+            if (StringUtils.isEmpty(result)) {
+                throw new RemoteException("获取OA可报销代理人接口异常");
             }
+            List<Object> oaReimAgents = JSON.parseArray(result, Object.class);
+            return CollectionUtils.isEmpty(oaReimAgents);
         };
 
         Retryer<Boolean> retryer = RetryerBuilder
@@ -179,7 +164,7 @@ public class GuavaTest {
                 .retryIfException()
 
                 //返回false也需要重试
-                .retryIfResult(Predicates.equalTo(false))
+                .retryIfResult(aBoolean -> Objects.equals(aBoolean, false))
                 //重调策略
                 .withWaitStrategy(WaitStrategies.fixedWait(10, TimeUnit.SECONDS))
                 //尝试次数
@@ -188,18 +173,11 @@ public class GuavaTest {
                 .withRetryListener(new MyRetryListener())
 
                 .build();
-        try {
-            retryer.call(updateReimAgentsCall);
-        } catch (ExecutionException e) {
-//            e.printStackTrace();
-        } catch (RetryException e) {
-//            logger.error("更新可代理报销人异常,需要发送提醒邮件");
-        }
+        retryer.call(updateReimAgentsCall);
     }
 
 
-
-     public class  MyRetryListener<Boolean> implements RetryListener {
+    class MyRetryListener implements RetryListener {
 
         public <Boolean> void onRetry(Attempt<Boolean> attempt) {
 

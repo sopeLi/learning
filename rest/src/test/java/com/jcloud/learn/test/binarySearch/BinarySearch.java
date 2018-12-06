@@ -16,7 +16,7 @@ public class BinarySearch {
             } else if (baseNumber[middle] == willFindnumber) {
                 return middle;
             }
-             middle = (height - below) / 2+below;
+            middle = (height - below) / 2 + below;
         }
         throw new RuntimeException("未找到");
     }

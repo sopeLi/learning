@@ -1,0 +1,4 @@
+mode: WHITE_LIST
+whiteList:
+  - url: this_path_will_do_circuit_break
+    timeout: 100
