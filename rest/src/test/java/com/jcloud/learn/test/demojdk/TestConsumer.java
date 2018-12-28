@@ -4,10 +4,7 @@ import java.util.function.Consumer;
 
 public class TestConsumer {
 
-    public void test() {
-        Consumer<String> consumer = s -> System.out.print(s + "?");
-        consumer.accept("李鑫!");
-    }
+
 
     public void testConsumer1(String[] content, Consumer<String[]> consumer) {
         consumer.accept(content);

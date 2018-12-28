@@ -14,11 +14,11 @@ public class TestLambdaRefAndConstruct {
 
     }
 
-    public static void output1(String str) {
+    private static void output1(String str) {
         System.out.println(str);
     }
 
-    public static void output2(String str, String str2) {
+    private static void output2(String str, String str2) {
         System.out.println(str + str2);
     }
 
