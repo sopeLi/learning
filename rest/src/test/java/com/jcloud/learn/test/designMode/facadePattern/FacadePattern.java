@@ -3,6 +3,7 @@ package com.jcloud.learn.test.designMode.facadePattern;
 /**
  * 外观模式
  */
+//Facade 外观角色
 class Computer {
     private CPU cpu;
     private Memory memory;

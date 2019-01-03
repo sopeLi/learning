@@ -1,7 +1,11 @@
-package com.jcloud.learn.test.designMode.MediatorPattern;
+package com.jcloud.learn.test.designMode.mediatorPattern;
 
 import java.util.Date;
 
+/**
+ * 中介者模式
+ */
+//中介
 class ChatRoom {
     public static void showMessage(User user, String message) {
         System.out.println(new Date().toString()
