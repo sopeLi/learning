@@ -1,4 +1,4 @@
-package com.jcloud.learn.demojdk;
+package com.jcloud.learn.demojdk8;
 
 interface Demo {
     default void testDefault() {

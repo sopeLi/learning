@@ -1,4 +1,4 @@
-package com.jcloud.learn.demojdk;
+package com.jcloud.learn.demojdk8;
 
 /**
  * 如果一个接口只有一个抽象方法

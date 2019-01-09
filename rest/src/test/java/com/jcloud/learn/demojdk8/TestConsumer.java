@@ -1,4 +1,4 @@
-package com.jcloud.learn.demojdk;
+package com.jcloud.learn.demojdk8;
 
 import java.util.function.Consumer;
 
