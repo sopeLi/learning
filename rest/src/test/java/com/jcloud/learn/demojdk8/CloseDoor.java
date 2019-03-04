@@ -56,6 +56,9 @@ public class CloseDoor {
     }
 
     @Test
+    /**
+     *  构造方法引用
+     */
     public void testOutPrint() {
         OutPrint outPrint = PrintStream::print;
         outPrint.out(System.out, "hello every one");
@@ -66,13 +69,13 @@ public class CloseDoor {
     }
 
     @Test
-    public void testStringNew(){
-        StringNew stringNew=String::new;
-        String str=stringNew.build(new char[]{'a','b'});
+    public void testStringNew() {
+        StringNew stringNew = String::new;
+        String str = stringNew.build(new char[]{'a', 'b'});
         System.out.println(str);
     }
 
     interface StringNew {
-        String build(char [] chars);
+        String build(char[] chars);
     }
 }
