@@ -32,7 +32,7 @@ public class TestPartnersInfo {
         partners.put("test",partnersInfo);
         partners.put("test",partnersInfo1);
         System.out.println(partners.size());
-
+        System.out.println(partners.get("test"));
 
     }
 }

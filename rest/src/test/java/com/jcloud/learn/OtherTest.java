@@ -58,6 +58,8 @@ public class OtherTest {
     public void listTest() {
 //        List<Student> students=new ArrayList<Student>();
         Student s = new Student();
+        s.setName();
+        s.setAge();
         s.setAge();
         s.setName();
 
@@ -93,6 +95,15 @@ public class OtherTest {
         System.out.println(hs.size());
     }
 
+    @Test
+    public void test(){
+        Student student=new Student();
+        student.setName();
+        student.setAge();
+
+
+
+    }
 
     class Student {
 
@@ -101,5 +112,9 @@ public class OtherTest {
 
         void setAge() {
         }
+    }
+    @Test
+    public void testSubstring(){
+        System.out.println("201905101132043520593".substring(11,19));
     }
 }
