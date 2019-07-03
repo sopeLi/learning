@@ -20,8 +20,9 @@ public class LoadConfig {
         }
 
         Yaml yaml = new Yaml();
-        config = yaml.loadAs(configInputStream, CircuitBreakConfig.class);
+
         person = yaml.loadAs(personConfigInputStream, Person.class);
+        config = yaml.loadAs(configInputStream, CircuitBreakConfig.class);
     }
 
     public static void main(String[] args) {
