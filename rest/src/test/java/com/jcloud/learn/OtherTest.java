@@ -1,10 +1,12 @@
 package com.jcloud.learn;
 
 import org.junit.Test;
+import org.springframework.http.HttpMethod;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by lixin32 on 2018/6/18.
@@ -115,6 +117,22 @@ public class OtherTest {
     }
     @Test
     public void testSubstring(){
+//        return ((HttpMethod) Objects.requireNonNull(request.getMethod())).matches(method.name());
         System.out.println("201905101132043520593".substring(11,19));
+    }
+
+    @Test
+    public void finallyTest(){
+        for (int i = 0; i < 4; i++) {
+            try{
+                if(i==0){
+                    break;
+                }
+            }catch (Exception e){
+
+            }finally {
+                System.out.println(i);
+            }
+        }
     }
 }

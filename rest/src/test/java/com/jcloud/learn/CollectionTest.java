@@ -1,8 +1,13 @@
 package com.jcloud.learn;
 
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import java.util.*;
+import com.google.common.collect.Lists;
+import org.junit.Test;
 
 /**
  * Created by lixin32 on 2018/6/18.

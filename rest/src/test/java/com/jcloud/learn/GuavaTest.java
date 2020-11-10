@@ -3,6 +3,7 @@ package com.jcloud.learn;
 import com.alibaba.fastjson.JSON;
 import com.github.rholder.retry.*;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableSet;
@@ -209,5 +210,24 @@ public class GuavaTest {
 
             System.out.println();
         }
+    }
+
+    /**
+     * 字符串截取公共部分
+     */
+    @Test
+    public void prefixStringTest(){
+        //截取字符串公共前缀
+        String commonPrefix = Strings.commonPrefix("fenglang", "fengyue");
+        System.out.println(commonPrefix);
+
+        // 判断字符串是否为NULL或空
+        boolean nullOrEmpty = Strings.isNullOrEmpty("feng");
+        System.out.println(nullOrEmpty);
+        Integer a = 126;
+
+        Integer b = 126;
+        System.out.println(a==b);
+
     }
 }
