@@ -8,7 +8,7 @@ public class TestCurrentHashMap {
     private ConcurrentHashMap<String, Integer> partners = new ConcurrentHashMap<>(10);
 
     @Test
-    public void testSelect() throws InterruptedException {
+    public void testSelect(){
         Thread thread1 = new Thread(() -> {
             partners.clear();
             for (int i = 0; i < 10; i++) {

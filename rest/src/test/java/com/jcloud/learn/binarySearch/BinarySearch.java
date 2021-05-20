@@ -29,8 +29,12 @@ public class BinarySearch {
      * @param
      */
     public static void main(String[] args) {
-        int i[] = {1, 2, 3, 4, 5, 6};
-        int position = BinarySearch.binarySearch(i, 5);
-        System.out.print(position);
+        int i = 10, j = 10;
+        if (i++ > j--) {
+            System.out.println("test");
+        }
+//        int i[] = {1, 2, 3, 4, 5, 6};
+//        int position = BinarySearch.binarySearch(i, 5);
+//        System.out.print(position);
     }
 }

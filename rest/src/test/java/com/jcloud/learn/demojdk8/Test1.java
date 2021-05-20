@@ -21,9 +21,8 @@ class DemoImpl implements Demo {
  */
 public class Test1 {
     public static void main(String[] args) {
-        Demo demo = new DemoImpl();
-        demo.testDefault();
-        Demo.testStatic();
+        System.out.println(108458771*100);
+        System.out.println(Math.multiplyExact(108458771, 100));
     }
 }
 

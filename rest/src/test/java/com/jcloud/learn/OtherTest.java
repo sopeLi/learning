@@ -1,12 +1,10 @@
 package com.jcloud.learn;
 
-import org.junit.Test;
-import org.springframework.http.HttpMethod;
-
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
+import org.junit.Test;
 
 /**
  * Created by lixin32 on 2018/6/18.

@@ -1,6 +1,5 @@
 package com.jcloud.learn;
 
-import com.alibaba.fastjson.JSON;
 import com.github.rholder.retry.*;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
@@ -155,8 +154,8 @@ public class GuavaTest {
             if (StringUtils.isEmpty(result)) {
                 throw new RemoteException("获取OA可报销代理人接口异常");
             }
-            List<Object> oaReimAgents = JSON.parseArray(result, Object.class);
-            return CollectionUtils.isEmpty(oaReimAgents);
+//            List<Object> oaReimAgents = JSON.parseArray(result, Object.class);
+            return CollectionUtils.isEmpty(new ArrayList<>(2));
         };
 
         Retryer<Boolean> retryer = RetryerBuilder
