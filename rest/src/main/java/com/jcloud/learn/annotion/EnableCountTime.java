@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @description:
  * @date Create in 20:24 2021/5/20
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnableCountTime {
 
