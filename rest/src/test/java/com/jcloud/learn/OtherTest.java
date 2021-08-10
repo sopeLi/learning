@@ -1,6 +1,7 @@
 package com.jcloud.learn;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +54,14 @@ public class OtherTest {
         int i = 2147483647;
     }
 
+
+    @Test
+    public void longTest() {
+        long a = 100000l;
+        long b = 100000000l;
+        BigDecimal result = new BigDecimal(b - a).divide(new BigDecimal(b)).multiply(new BigDecimal(100l));
+        System.out.println(result.toBigInteger());
+    }
 
     @Test
     public void listTest() {
