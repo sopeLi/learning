@@ -1,4 +1,4 @@
-package com.letv.mms.zookeeper.util;
+package com.jcloud.learn.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
