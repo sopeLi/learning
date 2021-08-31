@@ -1,19 +1,22 @@
 package com.jcloud.learn.work.test;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
+import java.util.concurrent.TimeUnit;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.*;
-import java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
 
 @Component
+@Slf4j
 public class MessageWorker {
-
-    //日志
-    private final static Logger LOGGER = LoggerFactory
-            .getLogger(MessageWorker.class);
 
 
     //定时线程
@@ -55,7 +58,7 @@ public class MessageWorker {
         scheduledQueryExecutorService.scheduleWithFixedDelay(getTasks(),
                 delay, delay, TimeUnit.MILLISECONDS);
 
-        LOGGER.info("sending message worker for payment confirm started......");
+        log.info("sending message worker for payment confirm started......");
     }
 
     /**
@@ -71,12 +74,13 @@ public class MessageWorker {
      *
      */
     class QueryPaymentStatus implements Runnable {
+        @Override
         public void run() {
-            LOGGER.info("worker  begine queries payment result. sentAccountStatus = 2 will be queried out");
+            log.info("worker  begine queries payment result. sentAccountStatus = 2 will be queried out");
             try {
                 System.out.println("hello__________________________________________________________________________!!!!!!!!!!!!");
             } catch (Exception e) {
-                LOGGER.error("worker error in querying or dispatching , waiting for the next turn", e);
+                log.error("worker error in querying or dispatching , waiting for the next turn", e);
             }
         }
     }
@@ -85,7 +89,7 @@ public class MessageWorker {
      * 关闭Worker
      */
     public void stop() {
-        LOGGER.warn("stop the Sending Message worker for payment confirm");
+        log.warn("stop the Sending Message worker for payment confirm");
         if (scheduledQueryExecutorService != null) {
             scheduledQueryExecutorService.shutdown();
         }
