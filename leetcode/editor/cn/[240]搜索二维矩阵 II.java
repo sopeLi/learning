@@ -1,4 +1,4 @@
-//编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性： 
+package editor.cn;//编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
 //
 // 
 // 每行的元素从左到右升序排列。 
@@ -41,9 +41,9 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution3 {
     public boolean searchMatrix(int[][] matrix, int target) {
-        
+        return true;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
