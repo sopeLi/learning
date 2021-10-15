@@ -45,9 +45,12 @@ package editor.cn;
 // 👍 11264 👎 0
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution2 {
-    public static int[] twoSum(int[] nums, int target) {
+    public static int[] twoSumSolution1(int[] nums, int target) {
         for (int i = 0; i < nums.length; i++) {
             for (int j = i + 1; j < nums.length; j++) {
                 if (nums[i] + nums[j] == target) {
@@ -58,9 +61,22 @@ class Solution2 {
         return null;
     }
 
+    public static int[] twoSumSolution2(int[] nums, int target) {
+        Map<Integer, Integer> data = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (data.containsKey(target - nums[i])) {
+                return new int[]{data.get(target - nums[i]), i};
+            }
+            data.put(nums[i], i);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{3, 3, 2, 4};
-        int[] position = twoSum(nums, 6);
+        int[] position = twoSumSolution1(nums, 6);
+        System.out.println("[" + position[0] + "," + position[1] + "]");
+        position = twoSumSolution2(nums, 6);
         System.out.println("[" + position[0] + "," + position[1] + "]");
     }
 }
