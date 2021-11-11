@@ -1,4 +1,5 @@
-package editor.cn;//给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+package editor.cn;
+//给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
 //
 // 请你将两个数相加，并以相同形式返回一个表示和的链表。 
 //
@@ -9,9 +10,9 @@ package editor.cn;//给你两个 非空 的链表，表示两个非负的整数�
 // 示例 1： 
 //
 // 
-//输入：l1 = [2,4,3], l2 = [5,6,4]
-//输出：[7,0,8]
-//解释：342 + 465 = 807.
+//输入：l1 = [5,4,3], l2 = [5,6,4]
+//输出：[0,1,8]
+//解释：345 + 465 = 810.
 // 
 //
 // 示例 2： 
@@ -43,6 +44,10 @@ package editor.cn;//给你两个 非空 的链表，表示两个非负的整数�
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
+import java.util.Objects;
+
+import javax.sound.midi.Soundbank;
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -55,11 +60,34 @@ package editor.cn;//给你两个 非空 的链表，表示两个非负的整数�
  */
 class Solution1 {
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return null;
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head = null, tail = null;
+        int carry = 0;
+        while (Objects.nonNull(l1) || Objects.nonNull(l2)) {
+            int v1 = l1.val;
+            int v2 = l2.val;
+
+            if (Objects.isNull(head)) {
+                head = tail = new ListNode((v1 + v2 + carry) % 10);
+            } else {
+                tail.next = new ListNode((v1 + v2 + carry) % 10);
+                tail = tail.next;
+            }
+            carry = (v1 + v2 + carry) / 10;
+            if (Objects.nonNull(l1)) {
+                l1 = l1.next;
+            }
+            if (Objects.nonNull(l2)) {
+                l2 = l2.next;
+            }
+        }
+        if (carry > 0) {
+            tail.next = new ListNode(carry);
+        }
+        return head;
     }
 
-    class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 
@@ -74,6 +102,18 @@ class Solution1 {
             this.val = val;
             this.next = next;
         }
+    }
+
+    public static void main(String[] args) {
+//        l1 = [5,4,3], l2 = [5,6,4]
+        ListNode l1 = new ListNode(5);
+        l1.next = new ListNode(4);
+        l1.next.next = new ListNode(3);
+        ListNode l2 = new ListNode(5);
+        l2.next = new ListNode(6);
+        l2.next.next = new ListNode(4);
+        ListNode l3 = addTwoNumbers(l1, l2);
+        System.out.println(l3);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
