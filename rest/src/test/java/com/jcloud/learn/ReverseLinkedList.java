@@ -37,7 +37,7 @@ public class ReverseLinkedList {
     }
 
     private static Node reverseLinkedList(Node node) {
-        if (node == null || node.next == null) {
+        if (node.next == null) {
             return node;
         } else {
             Node headNode = reverseLinkedList(node.next);

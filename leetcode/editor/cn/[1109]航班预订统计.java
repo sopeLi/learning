@@ -50,7 +50,7 @@ package editor.cn;//这里有 n 个航班，它们分别从 1 到 n 进行编号
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution8 {
     public int[] corpFlightBookings(int[][] bookings, int n) {
         return null;
     }

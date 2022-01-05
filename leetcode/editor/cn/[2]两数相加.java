@@ -46,8 +46,6 @@ package editor.cn;
 
 import java.util.Objects;
 
-import javax.sound.midi.Soundbank;
-
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -113,7 +111,20 @@ class Solution1 {
         l2.next = new ListNode(6);
         l2.next.next = new ListNode(4);
         ListNode l3 = addTwoNumbers(l1, l2);
-        System.out.println(l3);
+        ListNode newHead = null;
+        ListNode currentNode = l3;
+        while (Objects.nonNull(currentNode)) {
+            ListNode temp = currentNode.next;
+            currentNode.next = newHead;
+            newHead = currentNode;
+            currentNode = temp;
+        }
+        ListNode node = newHead;
+        do {
+            System.out.print(node.val);
+            node = node.next;
+        } while (Objects.nonNull(node));
+        System.out.println(newHead);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
