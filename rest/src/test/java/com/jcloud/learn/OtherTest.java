@@ -1,5 +1,10 @@
 package com.jcloud.learn;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -10,7 +15,7 @@ import org.junit.Test;
 /**
  * Created by lixin32 on 2018/6/18.
  */
-public class OtherTest {
+public class OtherTest implements Serializable {
     @Test
     public void charTest() {
         char c = (char) -0;
@@ -105,11 +110,10 @@ public class OtherTest {
     }
 
     @Test
-    public void test(){
-        Student student=new Student();
+    public void test() {
+        Student student = new Student();
         student.setName();
         student.setAge();
-
 
 
     }
@@ -122,24 +126,76 @@ public class OtherTest {
         void setAge() {
         }
     }
+
     @Test
-    public void testSubstring(){
+    public void testSubstring() {
 //        return ((HttpMethod) Objects.requireNonNull(request.getMethod())).matches(method.name());
-        System.out.println("201905101132043520593".substring(11,19));
+        System.out.println("201905101132043520593".substring(11, 19));
     }
 
     @Test
-    public void finallyTest(){
+    public void finallyTest() {
         for (int i = 0; i < 4; i++) {
-            try{
-                if(i==0){
+            try {
+                if (i == 0) {
                     break;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
-            }finally {
+            } finally {
                 System.out.println(i);
             }
+        }
+    }
+
+    class User implements Serializable, Cloneable {
+        private String name;
+        private Integer age;
+
+        public User(String name, Integer age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
+    }
+
+    /**
+     * 实例化对象方式的几种方法
+     * （1）用new 语句创建对象，这是最常用的创建对象方法。
+     * （2）运用反射手段，调用Java.lang.Class或者java.lang.reflect.Constructor类的newInstance()实例方法。
+     * （3）调用对象的clone()方法
+     * （4）运用反序列化手段，调用java.io.ObjectInputStream对象的readObject()方法
+     *
+     * @throws Exception
+     */
+    @Test
+    public void newObjectTest() throws Exception {
+        User user1 = new User("dan", 1);
+        User user2;
+        user2 = (User) user1.clone();
+        user2.age = 33;
+        System.out.println(user1);
+        System.out.println(user2);
+
+        try {
+            //创建一个对象输出流，讲对象输出到文件
+            String fileName = "test.txt";
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+            out.writeObject(user1); //序列化一个会员对象
+            out.close();
+
+
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+            //读取UserInfo对象并调用它的toString()方法
+            User user = (User) (in.readObject());
+            System.out.println(user.toString());
+            in.close();
+        } catch (Exception x) {
+            System.out.println(x.toString());
         }
     }
 }
